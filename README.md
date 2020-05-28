@@ -20,7 +20,7 @@ The libraries used in the project include:
     - XGBoost
     - Missingno
 
-In this repo you'll find the jupyter notebooks associated to the data process steps, a folder for images and the finalized data pickle file for use.
+In this repo you'll find the jupyter notebooks associated to the data process steps, a folder for images, csv files and the finalized data pickle file for use. There is also a folder for archived notebooks and images for used code that didn't end up in the final project.
 
 ## Data Collection:
 

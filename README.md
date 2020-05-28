@@ -80,6 +80,8 @@ Scores_Kicking_Pts is a personal favorite. Kickers and Punters are only drafted 
     
 ### Modeling
         
+In order to track each model's success, I split my data to use a training set to fit a model and a test set to measure my evaluation metrics.
+
 My first step is to get a baseline model. Using a dummy classifier, I built my point of comparison for all other models I will run my data through. I set up functions to train my data through different kind of classifiers including:
 
   * Logistic Regression
@@ -90,23 +92,53 @@ My first step is to get a baseline model. Using a dummy classifier, I built my p
   * Gradient Boosting
   * XGBoost
 
-I also built a baseline model using a simple dummy classifier. It returned a model with a .11 accuracy on my test data. I think iterated through my more advanced classification model, manually tuning hyperparameters along the way. I iterated through 18 models beyond my baseline. My best model, an XGBoost, improved my accuracy, but only to .33. I know my modeling notebook has work to be done which I address in my Next Steps.
+I tuned my parameters, using grid search in some instances, and also addressed class imbalance using the following methods:
 
+   * Random Undersampling
+   * Random Oversampling
+   * Tomek Links
+   * SMOTE Tomek
+   
+In total, I ran my data through 30 models including the baseline. I tuned my hyperparameters to see what returned the best results before finally landing on my best one.
+    
 ### Model Evaluation
+
+To choose just what model is my **best** model, I wanted to strike a balance between Accuracy, F1 Score and my AUC Score. My accuracy would capture the ratio of just how many observations my model can appropriately classify. The F1 Score is the harmonic mean of precision and recall and the AUC is the area under the ROC Curve. Both F1 Score and AUC Score will give me an indication as to the quality of my classifier.
+
+#### Baseline Model
+
+My baseline model has an accuracy of .49, an F1 Score of .51 and an AUC Score of .49. It's not great, but it'll be my comparison point while I continue to model.
+
+![](images/'base_model'_CM.png)
+
+![](images/'base_model'ROC_Curve.png)
+
+#### Best Model
+
+To find a balanced model, I created a weighted average between the three metrics I'm interested in. I applied a 40% weight to Accuracy, 30% to F1 Score and 30% to my AUC Score. My best model it turns out is a gradient boosting model that's be tuned using grid search. This model has a .72 accuracy score, .69 F1 Score, and .61 AUC Curve. You can see in my ROC Curve that the line starts to move towards the left hand corner. It's moderately better at separating the classes compared to my baseline.
+
+![](images/'gradient_boost_gs'_CM.png)
+
+![](images/'gradient_boost_gs'ROC_Curve.png)
+
+### Feature Importance
+
+
+![](images/best_model_feat_import.png)
+
+I graphed my top 10 features. In total I have 55 in my best models so it felt a little overwhelming to try to look at all of them. One thing that immediately stuck out to me was that all of my included combine results are in the top 10. College play doesn't seem to have a huge impact when trying to predict whether or not a prospect will be drafted.
 
 ## Conclusion & Next Steps
 
 ### Conclusion:
 
-Creating an alogrithm for draft picks is tricky! My best model only returned 33% of the test observations correctly. There's a lot of room for improvement from here.
+With a decent accuracy, I can tell you if you'll be drafted based on your combine results and the pertinent college stats. Combine results play a huge part in this while one's college play, not quite so much. 
 
 ### Next Steps:
 
-As it stands now, my modeling process could use some work. I want to better tune my hyperparameters using GridSearch to improve my models. In addition, when I look at my confusion matrix for my best model, my model really wants observations to be 'Not Drafted'. I want to address class imbalance in my data and see if that improves my accuracy.
+The next step is to take this project to the next level -- predicting round and even pick number! It'll mean collecting more data. Being able to quantify team needs and collecting articles or tweets on a player's character will add so much more dimension to the current dataset.
 
-I'd like to then take my hopefully new and improved best model to understand feature importance. From that I can identify what exactly makes a draft pick. Is it all based on the position a player is in or based on the points he scores? In turn, prospects can work on the necessary skills to boost their standing.
-
-Another way to try to classify is building a neural network. It won't be as interpretible as a Random Forest, but it could prove to be more accurate than my current classifiers.
+I'd also like to add a neural network to improve accuracy. I'll lose the ability to see the feature importance, but it could prove worthwhile to get the accuracy up past .72.
 
 ## Presentation
 [google slides](https://docs.google.com/presentation/d/1B8Ev0N20eYqUSgZaJah8Tq1tRi9pKltA3WiqSXeELWE/edit?usp=sharing)

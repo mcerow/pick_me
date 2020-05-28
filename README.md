@@ -140,5 +140,7 @@ The next step is to take this project to the next level -- predicting round and 
 
 I'd also like to add a neural network to improve accuracy. I'll lose the ability to see the feature importance, but it could prove worthwhile to get the accuracy up past .72.
 
+One final future piece I'd like to do is actually build models based on the particular positions. I think that different positions place different emphasize on features so if to be utilizied as a tool for what needs to be worked on, it really should be player position specific.
+
 ## Presentation
 [google slides](https://docs.google.com/presentation/d/1B8Ev0N20eYqUSgZaJah8Tq1tRi9pKltA3WiqSXeELWE/edit?usp=sharing)
